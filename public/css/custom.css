@@ -1,0 +1,10 @@
+.sidebar-brand-icon {
+	color: rgba(255, 255, 255, .9);
+}
+
+.sidebar-brand-text {
+	font-family: 'Lobster';
+	text-transform: none;
+	font-size: 18px;
+	color: rgba(255, 255, 255, .9);
+}
