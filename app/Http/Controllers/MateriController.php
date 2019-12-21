@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Materi;
 use Illuminate\Http\Request;
 
+use File;
+
 class MateriController extends Controller
 {
     public function __construct()
@@ -42,7 +44,13 @@ class MateriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul_materi' => 'required|string|max:191',
+            'filename' => 'required|string|max:191'
+        ]);
+        Materi::create($request->all());
+
+        return redirect('materi')->with('success', 'Materi berhasil diupload.');
     }
 
     public function handleUpload(Request $request)
@@ -51,15 +59,13 @@ class MateriController extends Controller
             'video' => 'required|max:51200'
         ]);
 
-        $filename = time().'.'.$request->video->extension();
+        $filename = time().'_'.str_replace(' ', '_', $request->judul_materi).'.'.$request->video->extension();
 
         if ($request->video->move(public_path('materi_uploads'), $filename)) {
-            return response()->json(['status' => 'success'], 200);
+            return response()->json(['status' => 'success', 'filename' => $filename], 200);
         } else {
-            return "s";
+            return response()->json(['status' => 'failed'], 200);
         }
-
-        // return redirect('materi')->with('success', 'File uploaded')->with('filename', $filename);
     }
 
     /**
@@ -70,7 +76,7 @@ class MateriController extends Controller
      */
     public function show(Materi $materi)
     {
-        //
+        return view('pages.materi-detail', compact('materi'));
     }
 
     /**
@@ -81,7 +87,7 @@ class MateriController extends Controller
      */
     public function edit(Materi $materi)
     {
-        //
+        return view('pages.materi-edit', compact('materi'));
     }
 
     /**
@@ -93,7 +99,18 @@ class MateriController extends Controller
      */
     public function update(Request $request, Materi $materi)
     {
-        //
+        $request->validate([
+            'judul_materi' => 'required|string|max:191'
+        ]);
+        if ($request->filled('filename')) {
+            File::delete(public_path('materi_uploads/'.$request->old_filename));
+            $data = $request->all();
+        } else {
+            $data = $request->except('filename');
+        }
+        $materi->update($data);
+
+        return redirect('materi')->with('success', 'Materi berhasil diubah.');
     }
 
     /**
@@ -104,6 +121,12 @@ class MateriController extends Controller
      */
     public function destroy(Materi $materi)
     {
-        //
+        if ($materi->delete()) {
+            File::delete(public_path('materi_uploads/'.$materi->filename));
+
+            return redirect('materi')->with('success', 'Materi berhasil dihapus');
+        } else {
+            return redirect('materi')->with('failed', 'Materi gagal dihapus');
+        }
     }
 }

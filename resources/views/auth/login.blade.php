@@ -41,7 +41,7 @@
 									<form class="user" action="{{ route('login') }}" method="POST">
 										@csrf
 										<div class="form-group">
-											<input type="text" class="form-control form-control-user @error('user_id') is-invalid @enderror" placeholder="User ID" name="user_id" value="{{ old('user_id') }}">
+											<input type="text" class="form-control form-control-user @error('user_id') is-invalid @enderror" placeholder="User ID" name="user_id" value="{{ old('user_id') }}" autofocus>
 										@error('user_id')
 											<div class="invalid-feedback">{{ $message }}</div>
 										@enderror

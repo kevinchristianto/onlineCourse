@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function materis()
+    {
+        return $this->belongsToMany('App\Materi', 'fasilitas', 'user_id', 'id_materi');
+    }
+
 }

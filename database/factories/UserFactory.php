@@ -20,7 +20,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'user_id' => $faker->userName,
         'nama' => $faker->name,
-        'password' => bcrypt('password'), // password
+        'password' => bcrypt('pwd'), // password
         'alamat' => $faker->address,
         'kota' => $faker->city,
         'user_type' => $faker->randomElement($array = ['admin', 'peserta']),

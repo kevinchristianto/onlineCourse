@@ -12,7 +12,18 @@
 
 <div class="row">
 	<div class="col-12">
-		<div class="card border-left-primary">
+	@if(session()->get('success'))
+		<div class="alert alert-success fade show">
+			{{ session()->get('success') }}
+			<button class="close" data-dismiss="alert">&times;</button>
+		</div>
+	@elseif(session()->get('failed'))
+		<div class="alert alert-danger fade show">
+		    {{ session()->get('failed') }}
+		    <button class="close" data-dismiss="alert">&times;</button>
+		</div>
+	@endif
+		<div class="card border-left-primary mb-5">
 			<div class="card-body">
 				<div class="row col justify-content-between mb-3">
 					<h5 class="card-title text-primary font-weight-bold my-auto">Daftar Materi</h5>
@@ -25,7 +36,7 @@
 								<th>No.</th>
 								<th>Judul Video</th>
 								<th>Video</th>
-								<th>Opsi</th>
+								<th class="text-center" style="width: 80px">Opsi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -35,8 +46,9 @@
 								<td>{{ $no }}.</td>
 								<td>{{ $materi->judul_materi }}</td>
 								<td>{{ $materi->filename }}</td>
-								<td class="d-flex align-items-center">
-									<a href="{{ route('materi.edit', $materi->id_materi) }}"><i class="fas fa-edit" title="Edit" data-toggle="tooltip"></i></a>
+								<td class="d-flex align-items-center justify-content-center">
+									<a href="{{ route('materi.show', $materi->id_materi) }}"><i class="fas fa-info-circle" title="Detail" data-toggle="tooltip"></i></a>
+									<a href="{{ route('materi.edit', $materi->id_materi) }}"><i class="fas fa-edit ml-3" title="Edit" data-toggle="tooltip"></i></a>
 									<form method="POST" action="{{ route('materi.destroy', $materi->id_materi) }}" onsubmit="return confirm('Anda yakin?')">
 										@csrf
 										@method('DELETE')
@@ -70,28 +82,32 @@
 					Video berhasil diupload
 					<button class="close" data-dismiss="alert">&times;</button>
 				</div>
-				<form method="POST" action="{{ route('materi.store') }}">
+				<div class="alert alert-danger d-none">
+					Video gagal diupload
+					<button class="close" data-dismiss="alert">&times;</button>
+				</div>
+				<form method="POST" action="{{ route('materi.store') }}" id="upload-form">
 					@csrf
 					<div class="form-group">
 						<label class="control-label">Judul Video</label>
-						<input type="text" name="judul" class="form-control" required>
+						<input type="text" name="judul_materi" class="form-control" maxlength="191" required>
 					</div>
 					<div class="form-group">
 						<label class="control-label">Video</label>
 						<div class="input-group">
 							<div class="custom-file">
+								<input type="hidden" name="filename">
 								<input type="file" name="video" class="custom-file-input" id="video-upload" data-url="{{ route('materi.handleUpload') }}" accept="video/*" required>
 								<label class="custom-file-label" id="upload-video-label">Pilih video</label>
 							</div>
 							<div class="input-group-append" id="container-upload-btn"></div>
 						</div>
-						<small class="form-text text-muted">Pilih video terlebih dahulu, kemudian klik Upload sebelum klik Simpan.</small>
+						<small class="form-text text-muted">Tombol Upload akan muncul setelah memilih video.</small>
 						<div class="progress progress-sm d-none">
 							<div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 						</div>
 					</div>
 					<div class="form-group">
-						<button class="btn btn-primary float-right">Simpan</button>
 						<a href="javascript:void(0)" data-dismiss="modal" class="btn btn-danger float-right mr-2">Batal</a>
 					</div>
 				</form>
@@ -107,4 +123,5 @@
 <script src="{{ asset('vendor/jquery-file-upload/vendor/jquery.ui.widget.js') }}"></script>
 <script src="{{ asset('vendor/jquery-file-upload/jquery.iframe-transport.js') }}"></script>
 <script src="{{ asset('vendor/jquery-file-upload/jquery.fileupload.js') }}"></script>
+<script src="{{ asset('js/fileupload-process.js') }}"></script>
 @endsection

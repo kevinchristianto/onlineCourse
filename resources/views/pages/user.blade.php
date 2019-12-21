@@ -12,7 +12,23 @@
 
 <div class="row">
 	<div class="col-12">
-		<div class="card border-left-primary">
+		@if($errors->has('user_id') || $errors->has('password') || $errors->has('nama') || $errors->has('kota') || $errors->has('tipe_user'))
+		    <div class="alert alert-danger fade show mb-5">
+		        Gagal menambahkan user, silakan periksa kembali.
+		        <button class="close" data-dismiss="alert">&times;</button>
+		    </div>
+		@elseif(session()->get('success'))
+		    <div class="alert alert-success fade show mb-5">
+		        {{ session()->get('success') }}
+		        <button class="close" data-dismiss="alert">&times;</button>
+		    </div>
+		@elseif(session()->get('failed'))
+		    <div class="alert alert-danger fade show mb-5">
+		        {{ session()->get('failed') }}
+		        <button class="close" data-dismiss="alert">&times;</button>
+		    </div>
+		@endif
+		<div class="card border-left-primary mb-5">
 			<div class="card-body">
 				<div class="row col justify-content-between mb-3">
 					<h5 class="card-title text-primary font-weight-bold my-auto">Daftar User</h5>
@@ -41,7 +57,7 @@
 								<td>{{ $user->alamat }}</td>
 								<td>{{ $user->kota }}</td>
 								<td>{{ ucwords($user->user_type) }}</td>
-								<td class="d-flex align-items-center">
+								<td class="d-flex align-items-center justify-content-center">
 									<a href="{{ route('user.edit', $user->user_id) }}"><i class="fas fa-edit" title="Edit" data-toggle="tooltip"></i></a>
 									<form method="POST" action="{{ route('user.destroy', $user->user_id) }}" onsubmit="return confirm('Anda yakin?')">
 										@csrf

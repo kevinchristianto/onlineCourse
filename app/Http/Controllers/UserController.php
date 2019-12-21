@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Materi;
+use App\Fasilitas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -70,6 +72,24 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_fasilitas(User $user)
+    {
+        $full_materis = Materi::all();
+        $unselected_materis = Materi::whereNotIn('id_materi', function($query) use ($user) {
+            $query->select('id_materi')->from('fasilitas')->where('user_id', $user->user_id)->get();
+        })->get();
+        $fasilitas = Fasilitas::join('materi', 'materi.id_materi', '=', 'fasilitas.id_materi')->where('user_id', $user->user_id)->get();
+        // $fasilitas = $fasilitas->toArray();
+        // print_r($materis[0]['judul_materi']);
+        return view('pages.user-edit-fasilitas', compact('user', 'full_materis', 'unselected_materis', 'fasilitas'));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -85,9 +105,15 @@ class UserController extends Controller
             'kota' => 'required',
             'user_type' => 'required',
         ]);
-        $request->merge(['password' => Hash::make($request->input('password'))]);     // Modify password value, hash
+
         $request->merge(['user_type' => $request->input('user_type')]);
-        $user->update($request->all());
+        if (!$request->filled('password')) {
+            $data = $request->except('password');
+        } else {
+            $request->merge(['password' => Hash::make($request->input('password'))]);     // Modify password value, hash
+            $data = $request->all();
+        }
+        $user->update($data);
 
         return redirect('user')->with('success', 'Data berhasil disimpan.');
     }

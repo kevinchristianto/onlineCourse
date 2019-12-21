@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-12">
-		<div class="card border-left-primary">
+		<div class="card border-left-primary mb-5">
 			<div class="card-body">
 				<form method="POST" action="{{ route('user.update', $user->user_id) }}">
 					@csrf

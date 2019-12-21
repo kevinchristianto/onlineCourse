@@ -1,10 +1,15 @@
+a:hover {
+	text-decoration: none;
+}
+
 .sidebar-brand-icon {
 	color: rgba(255, 255, 255, .9);
 }
 
 .sidebar-brand-text {
 	font-family: 'Lobster';
+	letter-spacing: .5px;
 	text-transform: none;
-	font-size: 18px;
+	font-size: 20px;
 	color: rgba(255, 255, 255, .9);
 }
