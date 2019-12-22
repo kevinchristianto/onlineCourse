@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Materi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
-use File;
 
 class MateriController extends Controller
 {
@@ -59,9 +60,11 @@ class MateriController extends Controller
             'video' => 'required|max:51200'
         ]);
 
-        $filename = time().'_'.str_replace(' ', '_', $request->judul_materi).'.'.$request->video->extension();
+        // $filename = time().'_'.str_replace(' ', '_', $request->judul_materi).'.'.$request->video->extension();
+        $filename = time() . '_' . uniqid() . '.' . $request->video->extension();
 
-        if ($request->video->move(public_path('materi_uploads'), $filename)) {
+        if ($request->video->storeAs('materi', $filename)) {
+        // if (Storage::putFileAs('public/materi', $request->video, $filename)) {
             return response()->json(['status' => 'success', 'filename' => $filename], 200);
         } else {
             return response()->json(['status' => 'failed'], 200);
@@ -103,7 +106,8 @@ class MateriController extends Controller
             'judul_materi' => 'required|string|max:191'
         ]);
         if ($request->filled('filename')) {
-            File::delete(public_path('materi_uploads/'.$request->old_filename));
+            // File::delete(public_path('materi_uploads/'.$request->old_filename));
+            File::delete(storage_path('app\materi\\' . $request->old_filename));
             $data = $request->all();
         } else {
             $data = $request->except('filename');
@@ -122,7 +126,8 @@ class MateriController extends Controller
     public function destroy(Materi $materi)
     {
         if ($materi->delete()) {
-            File::delete(public_path('materi_uploads/'.$materi->filename));
+            // File::delete(public_path('materi_uploads/'.$materi->filename));
+            File::delete(storage_path('app\materi\\' . $materi->filename));
 
             return redirect('materi')->with('success', 'Materi berhasil dihapus');
         } else {

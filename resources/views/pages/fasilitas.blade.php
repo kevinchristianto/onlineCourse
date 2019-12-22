@@ -17,7 +17,6 @@
 			<div class="card-body">
 				<div class="row col justify-content-between mb-3">
 					<h5 class="card-title text-primary font-weight-bold my-auto">Daftar Fasilitas Kepesertaan</h5>
-					<button class="btn btn-outline-primary" data-toggle="modal" data-target="#add-fasilitas-modal">Tambah Fasilitas</button>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover datatables">
@@ -55,57 +54,6 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-@endsection
-
-@section('modal-content')
-
-<div class="modal fade" id="add-fasilitas-modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Tambah User</h5>
-			</div>
-			<div class="modal-body">
-				<form method="POST" action="{{ route('fasilitas.store') }}">
-					@csrf
-					<div class="form-group">
-						<label class="control-label">User ID</label>
-						<input type="text" name="user_id" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label class="control-label">Password</label>
-						<input type="password" name="password" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label class="control-label">Nama</label>
-						<input type="text" name="nama" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label class="control-label">Alamat</label>
-						<textarea class="form-control" name="alamat"></textarea>
-					</div>
-					<div class="form-group">
-						<label class="control-label">Kota</label>
-						<input type="text" name="kota" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label class="control-label">Tipe User</label>
-						<select class="form-control" name="user_type" required>
-							<option selected disabled>--- Pilih Tipe User ---</option>
-							<option value="peserta">Peserta</option>
-							<option value="admin">Admin</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<button class="btn btn-primary float-right">Simpan</button>
-						<a href="javascript:void(0)" data-dismiss="modal" class="btn btn-danger float-right mr-2">Batal</a>
-					</div>
-				</form>
 			</div>
 		</div>
 	</div>

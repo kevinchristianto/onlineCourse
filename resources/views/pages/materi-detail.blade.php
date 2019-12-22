@@ -22,7 +22,7 @@
 				</div>
 				<div class="col-8 mx-auto mt-4">
 					<video id="player" playsinline controls>
-						<source src="/materi_uploads/{{ $materi->filename }}">
+						<source src="{{ url('/getVidMateri/' . $materi->id_materi) }}">
 					</video>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 <script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
 <script>
 	$(function() {
-		const player = new Plyr($("#player"))
+		const player = new Plyr('#player')
 	})
 </script>
 @endsection

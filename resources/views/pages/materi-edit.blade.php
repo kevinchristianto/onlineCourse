@@ -10,7 +10,7 @@
 	<div class="col-12">
 		<div class="card border-left-primary mb-5">
 			<div class="card-body">
-				<form method="POST" action="{{ route('materi.update', $materi->id_materi) }}" id="upload-form">
+				<form method="POST" action="{{ route('materi.update', $materi->id_materi) }}" id="upload-form" enctype="multipart/form-data">
 					@csrf
 					@method('PATCH')
 					<div class="form-group">

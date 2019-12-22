@@ -15,18 +15,23 @@
 		<div class="card border-left-primary mb-5">
 			<div class="card-body">
 				<h5 class="card-title text-primary font-weight-bold">Fasilitas {{ $user->nama }}</h5>
-				<div class="table-responsive">
-					<table class="table table-striped table-hover datatables">
-						<thead>
-							<tr>
-								<th>No.</th>
-								<th>Judul Materi</th>
-								<th class="text-center">Pilih</th>
-							</tr>
-						</thead>
-						<form action="" method="POST">
-							@csrf
-							@method('PATCH')
+			@error('id_materi')
+				<div class="alert alert-danger fade show">
+					{{ $message }}
+					<button class="close" data-dismiss="alert">&times;</button>
+				</div>
+			@enderror
+				<form action="{{ route('fasilitas.store', $user->user_id) }}" method="POST">
+					@csrf
+					<div class="table-responsive">
+						<table class="table table-striped table-hover datatables">
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>Judul Materi</th>
+									<th class="text-center">Pilih</th>
+								</tr>
+							</thead>
 							<tbody>
 							@php $no = 1 @endphp
 							@foreach($fasilitas as $materi)
@@ -59,7 +64,7 @@
 					<div class="form-group mt-3">
 						<input type="hidden" name="user_id" value="{{ $user->user_id }}">
 						<button class="btn btn-primary">Simpan</button>
-						<a href="{{ route('user.index') }}" data-dismiss="modal" class="btn btn-danger ml-1">Batal</a>
+						<a href="{{ route('fasilitas.index') }}" data-dismiss="modal" class="btn btn-danger ml-1">Batal</a>
 					</div>
 				</form>
 			</div>

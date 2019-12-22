@@ -37,7 +37,21 @@ class FasilitasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Fasilitas::where('user_id', $request->user_id)->delete();
+
+        if ($request->id_materi) {
+            foreach ($request->id_materi as $materi) {
+                $request->merge(['id_materi' => $materi]);
+                $request->validate([
+                    'user_id' => 'required|string',
+                    'id_materi' => 'integer'
+                ]);
+
+                Fasilitas::create($request->all());
+            }
+        }
+
+        return redirect('fasilitas')->with('Data fasilitas peserta berhasil diubah.');
     }
 
     /**
