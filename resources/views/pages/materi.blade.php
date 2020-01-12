@@ -98,7 +98,7 @@
 							<div class="custom-file">
 								<input type="hidden" name="filename">
 								<input type="file" name="video" class="custom-file-input" id="video-upload" data-url="{{ route('materi.handleUpload') }}" accept="video/*" required>
-								<label class="custom-file-label" id="upload-video-label">Pilih video</label>
+								<label class="custom-file-label" id="upload-video-label" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Pilih video</label>
 							</div>
 							<div class="input-group-append" id="container-upload-btn"></div>
 						</div>
