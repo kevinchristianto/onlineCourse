@@ -1,7 +1,7 @@
 $(function() {
 
 	$(document).ready(function() {
-		// $(".datatables").DataTable();
+		$(".datatables").DataTable();
 
 		$(function() {
 			$('[data-toggle="tooltip"]').tooltip();

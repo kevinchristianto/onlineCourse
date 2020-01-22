@@ -15,9 +15,11 @@
 	@foreach($materis as $materi)
 		<a href="{{ url('view-materi/' . $materi->id_materi) }}">
 			<div class="card mb-5">
-				<video class="card-img-top player" style="width: 100%" playsinline>
-					<source src="{{ url('/getVidMateri/' . $materi->id_materi) }}">
-				</video>
+				<div class="col" style="padding: 0; height: 140px; overflow: hidden;">
+					<video id="card-img-top players" style="width: 100%; object-fit: cover;">
+						<source src="{{ url('/getVidMateri/' . $materi->id_materi) }}">
+					</video>
+				</div>
 				<!-- <img src="{{ url('/getVidMateri/' . $materi->id_materi) }}" class="card-img-top"> -->
 				<div class="card-body">
 					<p class="card-text text-primary font-weight-bold">{{ $materi->judul_materi }}</p>

@@ -31,7 +31,8 @@ class PesertaController extends Controller
             $materi = Materi::where('id_materi', $id)->first();
             $filename = $materi->filename;
 
-            return response()->file(storage_path('app\materi\\' . $filename));
+            return response()->file(storage_path('app/materi/' . $filename));
+            // return response()->file('./materiStorage/' . $filename);
         } else {
             return redirect('home');
         }

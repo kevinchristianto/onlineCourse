@@ -13,9 +13,9 @@
 <div class="row">
 	<div class="col-12 col-lg-10 mx-auto">
 		<div class="card mb-5">
-			<video class="card-img-top" id="player" style="width: 100%" playsinline controls>
-				<source src="{{ url('/getVidMateri/' . $materi->id_materi) }}">
-			</video>
+			<video id="player" playsinline controls style="max-height: 480px">
+					<source src="{{ url('/getVidMateri/' . $materi->id_materi) }}">
+				</video>
 			<div class="card-body">
 				<h5 class="card-text text-primary font-weight-bold">{{ $materi->judul_materi }}</h5>
 			</div>

@@ -107,7 +107,7 @@ class MateriController extends Controller
         ]);
         if ($request->filled('filename')) {
             // File::delete(public_path('materi_uploads/'.$request->old_filename));
-            File::delete(storage_path('app\materi\\' . $request->old_filename));
+            File::delete(storage_path('app/materi/' . $request->old_filename));
             $data = $request->all();
         } else {
             $data = $request->except('filename');
@@ -127,7 +127,7 @@ class MateriController extends Controller
     {
         if ($materi->delete()) {
             // File::delete(public_path('materi_uploads/'.$materi->filename));
-            File::delete(storage_path('app\materi\\' . $materi->filename));
+            File::delete(storage_path('app/materi/' . $materi->filename));
 
             return redirect('materi')->with('success', 'Materi berhasil dihapus');
         } else {

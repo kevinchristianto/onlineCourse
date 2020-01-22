@@ -20,8 +20,8 @@
 						<h5 class="card-title my-auto text-primary font-weight-bold">{{ $materi->judul_materi }}</h5>
 					</a>
 				</div>
-				<div class="col-8 mx-auto mt-4">
-					<video id="player" playsinline controls>
+				<div class="col-10 mx-auto mt-4">
+					<video id="player" playsinline controls style="max-height: 480px">
 						<source src="{{ url('/getVidMateri/' . $materi->id_materi) }}">
 					</video>
 				</div>
