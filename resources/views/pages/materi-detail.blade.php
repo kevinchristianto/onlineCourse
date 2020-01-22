@@ -21,7 +21,7 @@
 					</a>
 				</div>
 				<div class="col-10 mx-auto mt-4">
-					<video id="player" playsinline controls style="max-height: 480px">
+					<video id="player" class="video-max-height" controls>
 						<source src="{{ url('/getVidMateri/' . $materi->id_materi) }}">
 					</video>
 				</div>
@@ -37,6 +37,13 @@
 <script>
 	$(function() {
 		const player = new Plyr('#player')
+
+		player.on('enterfullscreen', () => {
+			$("#player").removeClass('video-max-height')
+		})
+		player.on('exitfullscreen', () => {
+			$("#player").addClass('video-max-height')
+		})
 	})
 </script>
 @endsection
