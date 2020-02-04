@@ -10,8 +10,8 @@ $('#video-upload').fileupload({
 			console.log(fileType)
 			if (!fileType.match(acceptedFileTypes)) {
 				alert('Format file salah, file yang didukung: .h264, .mp4, .mpv, .mpeg, .ogg, .mov, .webm, .avi.')
-			} else if (data.files[0].size > 52428800) {
-				alert('File terlalu besar, ukuran maksimum 50MB')
+			} else if (data.files[0].size > 7864320) {
+				alert('File terlalu besar, ukuran maksimum 7.5 MB')
 			} else {
 				if (confirm('Anda yakin ingin mengupload file ini?')) {
 					let judul = $("input[name='judul_materi']").val()

@@ -57,7 +57,7 @@ class MateriController extends Controller
     public function handleUpload(Request $request)
     {
         $request->validate([
-            'video' => 'required|max:51200'
+            'video' => 'required|max:7680'
         ]);
 
         // $filename = time().'_'.str_replace(' ', '_', $request->judul_materi).'.'.$request->video->extension();
